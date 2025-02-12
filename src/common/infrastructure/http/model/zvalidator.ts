@@ -4,55 +4,56 @@ import { z, ZodError, ZodSchema, ZodObject } from 'zod';
 
 export type Hook<
   T,
-  E extends Env,
-  P extends string,
-  Target extends keyof ValidationTargets = keyof ValidationTargets,
-  O = {},
+  TE extends Env,
+  TP extends string,
+  TTarget extends keyof ValidationTargets = keyof ValidationTargets,
+  TO = {},
 > = (
   result: ({ success: true; data: T } | { success: false; error: ZodError; data: T }) & {
-    target: Target;
+    target: TTarget;
   },
-  c: Context<E, P>,
-) => Response | void | TypedResponse<O> | Promise<Response | void | TypedResponse<O>>;
+  c: Context<TE, TP>,
+) => Response | void | TypedResponse<TO> | Promise<Response | void | TypedResponse<TO>>;
 
 type HasUndefined<T> = undefined extends T ? true : false;
 
 export const zValidator = <
   T extends ZodSchema,
-  Target extends keyof ValidationTargets,
-  E extends Env,
-  P extends string,
-  In = z.input<T>,
-  Out = z.output<T>,
-  I extends Input = {
-    in: HasUndefined<In> extends true
+  TTarget extends keyof ValidationTargets,
+  TE extends Env,
+  TP extends string,
+  TIn = z.input<T>,
+  TOut = z.output<T>,
+  TI extends Input = {
+    in: HasUndefined<TIn> extends true
       ? {
-          [K in Target]?: In extends ValidationTargets[K] ? In : { [K2 in keyof In]?: ValidationTargets[K][K2] };
+          [K in TTarget]?: TIn extends ValidationTargets[K] ? TIn : { [K2 in keyof TIn]?: ValidationTargets[K][K2] };
         }
       : {
-          [K in Target]: In extends ValidationTargets[K] ? In : { [K2 in keyof In]: ValidationTargets[K][K2] };
+          [K in TTarget]: TIn extends ValidationTargets[K] ? TIn : { [K2 in keyof TIn]: ValidationTargets[K][K2] };
         };
-    out: { [K in Target]: Out };
+    out: Record<TTarget, TOut>;
   },
-  V extends I = I,
+  TV extends TI = TI,
 >(
-  target: Target,
+  target: TTarget,
   schema: T,
-  hook?: Hook<z.infer<T>, E, P, Target>,
-): MiddlewareHandler<E, P, V> =>
+  hook?: Hook<z.infer<T>, TE, TP, TTarget>,
+): MiddlewareHandler<TE, TP, TV> =>
   // @ts-expect-error not typed well
-  validator(target, async (value, c) => {
+  validator(target, async (value: {}, c: Context<TE, TP>) => {
     let validatorValue = value;
 
     // in case where our `target` === `header`, Hono parses all of the headers into lowercase.
     // this might not match the Zod schema, so we want to make sure that we account for that when parsing the schema.
     if (target === 'header' && schema instanceof ZodObject) {
       // create an object that maps lowercase schema keys to lowercase
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
       const schemaKeys = Object.keys(schema.shape);
-      const caseInsensitiveKeymap = Object.fromEntries(schemaKeys.map((key) => [key.toLowerCase(), key]));
+      const caseInsensitiveKeymap = Object.fromEntries(schemaKeys.map((key: string) => [key.toLowerCase(), key]));
 
       validatorValue = Object.fromEntries(
-        Object.entries(value).map(([key, value]) => [caseInsensitiveKeymap[key] || key, value]),
+        Object.entries(value).map(([key, value]: [string, unknown]) => [caseInsensitiveKeymap[key] ?? key, value]),
       );
     }
 
