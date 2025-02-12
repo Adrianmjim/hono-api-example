@@ -23,7 +23,7 @@ describe(UpdateCommandToFindQueryOrmConverter.name, () => {
 
   describe('.convert()', () => {
     describe('when called', () => {
-      let updateCommandFixture: UpdateCommand
+      let updateCommandFixture: UpdateCommand;
       let queryOrmFixture: SQL | undefined;
       let result: unknown;
 
