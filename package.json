@@ -1,5 +1,6 @@
 {
   "name": "hono-api-example",
+  "description": "HonoJS API Example",
   "scripts": {
     "dev": "wrangler dev",
     "deploy": "wrangler deploy --minify",
@@ -16,7 +17,6 @@
     "test:coverage": "pnpm run test --coverage"
   },
   "dependencies": {
-    "@hono/zod-validator": "0.4.2",
     "@neondatabase/serverless": "0.10.4",
     "drizzle-orm": "0.39.3",
     "hono": "4.7.0",
@@ -25,7 +25,6 @@
     "zod": "3.24.2"
   },
   "devDependencies": {
-    "@cloudflare/workers-types": "4.20250204.0",
     "@eslint/compat": "1.2.6",
     "@eslint/js": "9.20.0",
     "@types/node": "22.13.1",
@@ -46,5 +45,6 @@
     "typescript-eslint": "8.24.0",
     "vitest": "3.0.5",
     "wrangler": "3.108.1"
-  }
+  },
+  "version": "1.0.0"
 }
