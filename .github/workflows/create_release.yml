@@ -6,6 +6,9 @@ on:
 jobs:
   create-release:
     runs-on: ubuntu-latest
+    permissions:
+      pull-requests: write
+      contents: write
 
     strategy:
       matrix:
@@ -14,7 +17,9 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
-          token: ${{ secrets.GIT_TOKEN }}
+          submodules: "recursive"
+          fetch-depth: 10
+          token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Setup PNPM
         uses: pnpm/action-setup@v4.1.0
@@ -31,10 +36,20 @@ jobs:
       - name: Install standard-version
         run : pnpm i -g standard-version
 
+      - name: Create migrations
+        run: pnpm migration:create
+        env:
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
+
       - name: Config git
         run: |
           git config --global user.email "${{ github.event.sender.email }}"
           git config --global user.name "${{ github.event.sender.login }}"
+
+      - name: Commit migrations
+        run: |
+          git add drizzle/
+          git commit "chore(migrations): Add new migration"
 
       - name: Apply standard-version
         run: standard-version -t ""  --no-verify
@@ -51,7 +66,7 @@ jobs:
 
       - name: Create release PR
         env:
-          GH_TOKEN: ${{ secrets.GIT_TOKEN }}
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           gh pr create \
           --title "chore(release): ${{ steps.version.outputs.VERSION }}" \
