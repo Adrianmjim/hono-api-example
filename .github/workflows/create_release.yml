@@ -36,6 +36,9 @@ jobs:
       - name: Install standard-version
         run : pnpm i -g standard-version
 
+      - name: Install dependencies
+        run: pnpm install
+
       - name: Create migrations
         run: pnpm migration:create
         env:
