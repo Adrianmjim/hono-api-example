@@ -31,8 +31,8 @@ Follow these instructions to set up the project locally and get started with dev
 1. **Clone the repository:**
 
    ```bash
-   git clone https://github.com/your-username/your-repository.git
-   cd your-repository
+   git clone https://github.com/adrianmjim/hono-api-example.git
+   cd hono-api-example
    ```
 
 2. **Install dependencies using pnpm:**
