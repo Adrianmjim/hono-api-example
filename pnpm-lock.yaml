@@ -8,9 +8,6 @@ importers:
 
   .:
     dependencies:
-      '@hono/zod-validator':
-        specifier: 0.4.2
-        version: 0.4.2(hono@4.7.0)(zod@3.24.2)
       '@neondatabase/serverless':
         specifier: 0.10.4
         version: 0.10.4
@@ -30,9 +27,6 @@ importers:
         specifier: 3.24.2
         version: 3.24.2
     devDependencies:
-      '@cloudflare/workers-types':
-        specifier: 4.20250204.0
-        version: 4.20250204.0
       '@eslint/compat':
         specifier: 1.2.6
         version: 1.2.6(eslint@9.20.1)
@@ -788,12 +782,6 @@ packages:
   '@fastify/busboy@2.1.1':
     resolution: {integrity: sha512-vBZP4NlzfOlerQTnba4aqZoMhE/a9HY7HRqoOPaETQcSQuWEIyZMHGfVu6w9wGtGK5fED5qRs2DteVCjOH60sA==}
     engines: {node: '>=14'}
-
-  '@hono/zod-validator@0.4.2':
-    resolution: {integrity: sha512-1rrlBg+EpDPhzOV4hT9pxr5+xDVmKuz6YJl+la7VCwK6ass5ldyKm5fD+umJdV2zhHD6jROoCCv8NbTwyfhT0g==}
-    peerDependencies:
-      hono: '>=3.9.0'
-      zod: ^3.19.1
 
   '@humanfs/core@0.19.1':
     resolution: {integrity: sha512-5DyQ4+1JEUzejeK1JGICcideyfUbGixgS9jNgex5nqkW+cY7WZhxBigmieN5Qnw9ZosSNVC9KQKyb+GUaGyKUA==}
@@ -2777,7 +2765,8 @@ snapshots:
   '@cloudflare/workerd-windows-64@1.20250204.0':
     optional: true
 
-  '@cloudflare/workers-types@4.20250204.0': {}
+  '@cloudflare/workers-types@4.20250204.0':
+    optional: true
 
   '@cspotcode/source-map-support@0.8.1':
     dependencies:
@@ -3137,11 +3126,6 @@ snapshots:
       levn: 0.4.1
 
   '@fastify/busboy@2.1.1': {}
-
-  '@hono/zod-validator@0.4.2(hono@4.7.0)(zod@3.24.2)':
-    dependencies:
-      hono: 4.7.0
-      zod: 3.24.2
 
   '@humanfs/core@0.19.1': {}
 
