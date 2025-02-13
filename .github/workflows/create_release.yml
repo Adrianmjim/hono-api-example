@@ -52,7 +52,7 @@ jobs:
       - name: Commit migrations
         run: |
           git add drizzle/
-          git commit "chore(migrations): Add new migration"
+          git commit -m "chore(migrations): Add new migration"
 
       - name: Apply standard-version
         run: standard-version -t ""  --no-verify
