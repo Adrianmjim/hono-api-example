@@ -10,11 +10,10 @@ const app: Hono = new Hono();
 
 app.use(cors());
 app.use(async (ctx: Context<{ Bindings: Bindings }>, next: Next) => {
-  try {
-    commonModule.get(InjectionKeys.databaseUrl);
-  } catch {
+  if (!commonModule.isBound(InjectionKeys.databaseUrl)) {
     commonModule.bind(InjectionKeys.databaseUrl).toConstantValue(ctx.env.DATABASE_URL);
   }
+  
   await next();
 });
 
