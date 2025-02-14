@@ -55,9 +55,9 @@ jobs:
           CHANGED_FILES=$(git diff --name-only HEAD^ HEAD)
           echo "Changed files: $CHANGED_FILES"
           if echo "$CHANGED_FILES" | grep -E '^drizzle/'; then
-            echo "::set-output name=should_run::true"
+            echo "should_run=true" >> $GITHUB_OUTPUT
           else
-            echo "::set-output name=should_run::false"
+            echo "should_run=false" >> $GITHUB_OUTPUT
           fi
 
       - name: Commit migrations
