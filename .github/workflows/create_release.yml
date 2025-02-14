@@ -49,7 +49,7 @@ jobs:
           git config --global user.email "${{ github.event.sender.email }}"
           git config --global user.name "${{ github.event.sender.login }}"
 
-      - name: Detect changed files in "drizzle" directory
+      - name: Detect new migrations
         id: file_check
         run: |
           CHANGED_FILES=$(git diff --name-only HEAD^ HEAD)
