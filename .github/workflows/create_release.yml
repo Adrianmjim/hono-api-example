@@ -49,7 +49,19 @@ jobs:
           git config --global user.email "${{ github.event.sender.email }}"
           git config --global user.name "${{ github.event.sender.login }}"
 
+      - name: Detect changed files in "drizzle" directory
+        id: file_check
+        run: |
+          CHANGED_FILES=$(git diff --name-only HEAD^ HEAD)
+          echo "Changed files: $CHANGED_FILES"
+          if echo "$CHANGED_FILES" | grep -E '^drizzle/'; then
+            echo "::set-output name=should_run::true"
+          else
+            echo "::set-output name=should_run::false"
+          fi
+
       - name: Commit migrations
+        if: steps.file_check.outputs.should_run == true
         run: |
           git add drizzle/
           git commit -m "chore(migrations): Add new migration"
