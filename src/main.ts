@@ -13,7 +13,7 @@ app.use(async (ctx: Context<{ Bindings: Bindings }>, next: Next) => {
   if (!commonModule.isBound(InjectionKeys.databaseUrl)) {
     commonModule.bind(InjectionKeys.databaseUrl).toConstantValue(ctx.env.DATABASE_URL);
   }
-  
+
   await next();
 });
 
