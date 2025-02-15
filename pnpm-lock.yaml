@@ -1,19 +1,22 @@
 lockfileVersion: '9.0'
 
 settings:
-  autoInstallPeers: true
+  autoInstallPeers: false
   excludeLinksFromLockfile: false
 
 importers:
 
   .:
     dependencies:
+      '@hono/zod-validator':
+        specifier: 0.4.3
+        version: 0.4.3(hono@4.7.1)(zod@3.24.2)
       '@neondatabase/serverless':
         specifier: 0.10.4
         version: 0.10.4
       drizzle-orm:
         specifier: 0.39.3
-        version: 0.39.3(@cloudflare/workers-types@4.20250204.0)(@neondatabase/serverless@0.10.4)(@types/pg@8.11.6)(postgres@3.4.5)
+        version: 0.39.3(@neondatabase/serverless@0.10.4)(@types/pg@8.11.6)
       hono:
         specifier: 4.7.1
         version: 4.7.1
@@ -86,7 +89,7 @@ importers:
         version: 3.0.5(@types/node@22.13.4)
       wrangler:
         specifier: 3.109.1
-        version: 3.109.1(@cloudflare/workers-types@4.20250204.0)
+        version: 3.109.1
 
 packages:
 
@@ -148,9 +151,6 @@ packages:
     engines: {node: '>=16'}
     cpu: [x64]
     os: [win32]
-
-  '@cloudflare/workers-types@4.20250204.0':
-    resolution: {integrity: sha512-mWoQbYaP+nYztx9I7q9sgaiNlT54Cypszz0RfzMxYnT5W3NXDuwGcjGB+5B5H5VB8tEC2dYnBRpa70lX94ueaQ==}
 
   '@cspotcode/source-map-support@0.8.1':
     resolution: {integrity: sha512-IchNf6dN4tHoMFIn/7OE8LWZ19Y6q/67Bmf6vnGREv8RSbBVb9LPJxEcnwrcwX6ixSvaiGoomAUvu4YSxXrVgw==}
@@ -782,6 +782,12 @@ packages:
   '@fastify/busboy@2.1.1':
     resolution: {integrity: sha512-vBZP4NlzfOlerQTnba4aqZoMhE/a9HY7HRqoOPaETQcSQuWEIyZMHGfVu6w9wGtGK5fED5qRs2DteVCjOH60sA==}
     engines: {node: '>=14'}
+
+  '@hono/zod-validator@0.4.3':
+    resolution: {integrity: sha512-xIgMYXDyJ4Hj6ekm9T9Y27s080Nl9NXHcJkOvkXPhubOLj8hZkOL8pDnnXfvCf5xEE8Q4oMFenQUZZREUY2gqQ==}
+    peerDependencies:
+      hono: '>=3.9.0'
+      zod: ^3.19.1
 
   '@humanfs/core@0.19.1':
     resolution: {integrity: sha512-5DyQ4+1JEUzejeK1JGICcideyfUbGixgS9jNgex5nqkW+cY7WZhxBigmieN5Qnw9ZosSNVC9KQKyb+GUaGyKUA==}
@@ -2264,10 +2270,6 @@ packages:
   postgres-range@1.1.4:
     resolution: {integrity: sha512-i/hbxIE9803Alj/6ytL7UHQxRvZkI9O4Sy+J3HGc4F4oo/2eQAjTSNJ0bfxyse3bH0nuVesCk+3IRLaMtG3H6w==}
 
-  postgres@3.4.5:
-    resolution: {integrity: sha512-cDWgoah1Gez9rN3H4165peY9qfpEo+SA61oQv65O3cRUE1pOEoJWwddwcqKE8XZYjbblOJlYDlLV4h67HrEVDg==}
-    engines: {node: '>=12'}
-
   prelude-ls@1.2.1:
     resolution: {integrity: sha512-vkcDPrRZo1QZLbn5RLGPpg/WmIQ65qoWWhcGKf/b5eplkkarX0m9z8ppCat4mlOqUsWpyNuYgO3VRyrYHSzX5g==}
     engines: {node: '>= 0.8.0'}
@@ -2781,9 +2783,6 @@ snapshots:
   '@cloudflare/workerd-windows-64@1.20250204.0':
     optional: true
 
-  '@cloudflare/workers-types@4.20250204.0':
-    optional: true
-
   '@cspotcode/source-map-support@0.8.1':
     dependencies:
       '@jridgewell/trace-mapping': 0.3.9
@@ -3142,6 +3141,11 @@ snapshots:
       levn: 0.4.1
 
   '@fastify/busboy@2.1.1': {}
+
+  '@hono/zod-validator@0.4.3(hono@4.7.1)(zod@3.24.2)':
+    dependencies:
+      hono: 4.7.1
+      zod: 3.24.2
 
   '@humanfs/core@0.19.1': {}
 
@@ -3769,12 +3773,10 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  drizzle-orm@0.39.3(@cloudflare/workers-types@4.20250204.0)(@neondatabase/serverless@0.10.4)(@types/pg@8.11.6)(postgres@3.4.5):
+  drizzle-orm@0.39.3(@neondatabase/serverless@0.10.4)(@types/pg@8.11.6):
     optionalDependencies:
-      '@cloudflare/workers-types': 4.20250204.0
       '@neondatabase/serverless': 0.10.4
       '@types/pg': 8.11.6
-      postgres: 3.4.5
 
   dunder-proto@1.0.1:
     dependencies:
@@ -4723,9 +4725,6 @@ snapshots:
 
   postgres-range@1.1.4: {}
 
-  postgres@3.4.5:
-    optional: true
-
   prelude-ls@1.2.1: {}
 
   prettier-linter-helpers@1.0.0:
@@ -5262,7 +5261,7 @@ snapshots:
       '@cloudflare/workerd-linux-arm64': 1.20250204.0
       '@cloudflare/workerd-windows-64': 1.20250204.0
 
-  wrangler@3.109.1(@cloudflare/workers-types@4.20250204.0):
+  wrangler@3.109.1:
     dependencies:
       '@cloudflare/kv-asset-handler': 0.3.4
       '@esbuild-plugins/node-globals-polyfill': 0.2.3(esbuild@0.17.19)
@@ -5274,7 +5273,6 @@ snapshots:
       unenv: 2.0.0-rc.1
       workerd: 1.20250204.0
     optionalDependencies:
-      '@cloudflare/workers-types': 4.20250204.0
       fsevents: 2.3.3
       sharp: 0.33.5
     transitivePeerDependencies:

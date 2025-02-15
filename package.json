@@ -17,6 +17,7 @@
     "test:coverage": "pnpm run test --coverage"
   },
   "dependencies": {
+    "@hono/zod-validator": "0.4.3",
     "@neondatabase/serverless": "0.10.4",
     "drizzle-orm": "0.39.3",
     "hono": "4.7.1",

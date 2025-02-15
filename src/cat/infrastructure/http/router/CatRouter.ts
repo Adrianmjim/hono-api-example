@@ -1,8 +1,8 @@
+import { zValidator } from '@hono/zod-validator';
 import { Context, Hono } from 'hono';
 
 import { Bindings } from '../../../../common/infrastructure/http/model/Bindings';
 import { JsonInputSchema } from '../../../../common/infrastructure/http/model/JsonInputSchema';
-import { zValidator } from '../../../../common/infrastructure/http/model/zvalidator';
 import { InjectionKeys } from '../../../../common/infrastructure/injection/InjectionKeys';
 import { DeleteOrmAdapter } from '../../../../common/infrastructure/orm/adapter/DeleteOrmAdapter';
 import { FindOneOrmAdapter } from '../../../../common/infrastructure/orm/adapter/FindOneOrmAdapter';
