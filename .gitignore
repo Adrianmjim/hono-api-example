@@ -1,6 +1,7 @@
 # prod
 lib/
 coverage/
+tsconfig.tsbuildinfo
 
 # dev
 .yarn/
@@ -32,3 +33,6 @@ lerna-debug.log*
 
 # misc
 .DS_Store
+
+pnpm-lock.yaml
+.pnpm-store
